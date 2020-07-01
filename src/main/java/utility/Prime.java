@@ -1,9 +1,11 @@
 package utility;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Prime {
 
@@ -93,6 +95,7 @@ public class Prime {
 		return p;
 	}
 
+		
 	private static boolean isNextPrime(long p) {
 		if (primes.isEmpty() && isPrime(p)) {
 			primes.add(p);
@@ -107,5 +110,44 @@ public class Prime {
 		primes.add(p);
 		return true;
 	}
+
+	public static Set<Long> calculateDivisors(long i) {
+		Set<Long> divisors = new HashSet<Long>();
+		Map<Long, Integer> primeDivisors = getMapOfPrimeDivisorsToPowers(i);
+		if (primeDivisors.entrySet().iterator().hasNext()) {
+			Map.Entry<Long, Integer> firstEntry = primeDivisors.entrySet().iterator().next();
+			Map<Long, Integer> remaindingPrimeDivisors = CollectionsHelper.removeWithCopy(primeDivisors, firstEntry);
+			for (int p = 0; p <= firstEntry.getValue(); p++) {
+				Long l = (long) Math.pow(firstEntry.getKey(), p);
+				divisors = calculateDivisorsRecur(divisors, l, remaindingPrimeDivisors);
+			}
+		}
+		return divisors;
+	}
+
+	static Set<Long> calculateDivisorsRecur(Set<Long> divisors, Long l, Map<Long, Integer> primeDivisors) {
+		//stop case
+		if (primeDivisors.isEmpty()) {
+			//prime number... it's only 1.
+			divisors.add(1L);
+		} else if (primeDivisors.keySet().size() == 1) {
+			Map.Entry<Long, Integer> lastEntry = primeDivisors.entrySet().iterator().next();
+			for (int p = 0; p <= lastEntry.getValue(); p++) {
+				long divisor = (long) (l * Math.pow(lastEntry.getKey(), p));
+				divisors.add(divisor);
+			}
+		} else {
+			Map.Entry<Long, Integer> entry = primeDivisors.entrySet().iterator().next();
+//			boolean removed = primeDivisors.remove(entry.getKey(), entry.getValue());
+			Map<Long, Integer> remaindingPrimeDivisors = CollectionsHelper.removeWithCopy(primeDivisors, entry);
+			for (int p = 0; p <= entry.getValue(); p++) {
+				Long l2 = l * ((long) Math.pow(entry.getKey(), p));
+				divisors = calculateDivisorsRecur(divisors, l2, remaindingPrimeDivisors);
+			}
+		}
+		return divisors;
+	}
+
+	
 	
 }

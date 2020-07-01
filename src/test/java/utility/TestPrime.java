@@ -3,13 +3,73 @@ package utility;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 public class TestPrime {
 
+	
+	@Test
+	public void test_calculateDivisorsRecur_lastStep() {
+		Set<Long> divisors = new HashSet<Long>();
+		Long l = 2L;
+		Map<Long, Integer> primeDivisors = new HashMap<Long, Integer>();
+		primeDivisors.put(3L, 1);
+		Set<Long> actual = Prime.calculateDivisorsRecur(divisors, l, primeDivisors);
+		Set<Long> expected = new HashSet<Long>();
+		expected.add(2L);
+		expected.add(6L);
+		assertEquals(expected, actual);
+		
+		divisors = new HashSet<Long>();
+		l = 2L;
+		primeDivisors = new HashMap<Long, Integer>();
+		primeDivisors.put(3L, 2);
+		actual = Prime.calculateDivisorsRecur(divisors, l, primeDivisors);
+		expected = new HashSet<Long>();
+		expected.add(2L);
+		expected.add(6L);
+		expected.add(18L);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void test_calculateDivisorsRecur_secondToLastStep() {
+		Set<Long> divisors = new HashSet<Long>();
+		Long l = 2L;
+		Map<Long, Integer> primeDivisors = new HashMap<Long, Integer>();
+		primeDivisors.put(3L, 1);
+		primeDivisors.put(5L, 1);
+		Set<Long> actual = Prime.calculateDivisorsRecur(divisors, l, primeDivisors);
+		Set<Long> expected = new HashSet<Long>();
+		expected.add(2L);
+		expected.add(6L);
+		expected.add(10L);
+		expected.add(30L);
+//		expected.add(15L);//this won't happen, because we're overlooking the loop for 2^0, 2^1. We're just sending in 2^1.
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void test_calculateDivisors_30() {
+		Set<Long> divisors = Prime.calculateDivisors(30);
+		Set<Long> expected = new HashSet<Long>();
+		expected.add(1L);
+		expected.add(2L);
+		expected.add(3L);
+		expected.add(5L);
+		expected.add(6L);
+		expected.add(10L);
+		expected.add(15L);
+		expected.add(30L);
+		assertEquals(expected, divisors);
+	}
+	
+	
 //	@Test
 	public void testIsPrime() {
 		Assert.assertEquals(false, Prime.isPrime(0));
@@ -61,7 +121,7 @@ public class TestPrime {
 		assertEquals(expected, actual);
 	}
 	
-	@Test
+//	@Test
 	public void testNextPrime() {
 		assertEquals(Prime.nextPrime(1L),2L);
 		assertEquals(Prime.nextPrime(2L),3L);
