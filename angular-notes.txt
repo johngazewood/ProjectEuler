@@ -1,0 +1,45 @@
+A View = a component + a template
+"Angular" loads as a collection of JavaScript modules.
+A Component - controlls a patch of screen called a "view"
+"decorator" in javascript seems analogous or functionally equivalent to "(class) annotation" in java.
+@Component - has metadata describing the template for this component which, together, form/describe a view.
+template - an html file.
+
+types of binding:
+  {{object.data}}   interpolation, displays data from an object
+  [object]          property,      asks the component to pass the obejct to the template.
+  (action)="method" event,         when user does an action, the method is invoked in the component.
+  [()]              two-way data binding.
+
+property binding does component->template flow
+event binding does    template->component flow
+
+Pipes...
+ - display-value tranformations in the template
+ {{interpolated_value | pipe_name}}
+
+Directives...
+ - a class with @Directive()
+ - @Component extends @Directive
+ - two type:
+   1. structural - add, remove, and/or replace elements in the DOM
+   2. attribute - alter the appearance or behavior of an existing element.
+ -
+
+Service
+ - use @Injectable decorator on a class to allow Angular to inject it into a component as a dependency.
+ - also use @Injectable to indicate a component or class *has* a dependency.
+ - the 'injector' inject deps to objects. Angular provides this without effort.
+ - 'provider' is an object that tells an injector how to obtain or create a dep.
+   - you must register at least one provider of any service you are going to use
+   
+ 
+ 
+---------------------------------------------------------------------------------------------------------------------
+NgModules - what are they?
+ - "configure the injector and the compiler and help organize related things"
+ - a class
+ - 
+
+
+

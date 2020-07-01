@@ -1,0 +1,10 @@
+https://stackoverflow.com/questions/43298011/angular-error-cant-bind-to-ngmodel-since-it-isnt-a-known-property-of-inpu
+https://angular.io/guide/ngmodules
+
+(trying to push project euler (and then angular-tour-of-heroes) to git hub, so I don't have to submit
+zip files every time..)
+https://docs.github.com/en/github/authenticating-to-github/error-permission-denied-publickey
+https://stackoverflow.com/questions/26505980/github-permission-denied-ssh-add-agent-has-no-identities
+https://stackoverflow.com/questions/17846529/could-not-open-a-connection-to-your-authentication-agent
+https://acloud.guru/forums/serverless-portfolio-with-react/discussion/-LJmN7TC5K8760G3uZXL/ssh-add:%20Error%20connecting%20to%20agent:%20No%20such%20file%20or%20directory
+https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account
