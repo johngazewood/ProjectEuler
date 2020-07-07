@@ -12,6 +12,34 @@ import org.junit.Test;
 
 public class TestPrime {
 
+	@Test
+	public void test_intersection() {
+		Map<Long, Integer> map1 = new HashMap<Long, Integer>();
+		map1.put(2L, 1);
+		map1.put(3L, 1);
+		map1.put(4L, 5);
+		Map<Long, Integer> map2 = new HashMap<Long, Integer>();
+		map2.put(3L, 2);
+		map2.put(4L, 3);
+		map2.put(5L, 3);
+		Map<Long, Integer> actual = Prime.intersection(map1, map2);
+		Map<Long, Integer> expected = new HashMap<Long, Integer>();
+		expected.put(3L, 1);
+		expected.put(4L, 3);
+		assertEquals(expected, actual);
+		
+		map1 = new HashMap<Long, Integer>();
+		map1.put(2L, 1);
+		map1.put(3L, 1);
+		map1.put(4L, 5);
+		map2 = new HashMap<Long, Integer>();
+		actual = Prime.intersection(map1, map2);
+		expected = new HashMap<Long, Integer>();
+		assertEquals(expected, actual);
+		
+		
+		
+	}
 	
 	@Test
 	public void test_calculateDivisorsRecur_lastStep() {

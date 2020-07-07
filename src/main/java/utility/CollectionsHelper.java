@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 public class CollectionsHelper {
 
@@ -21,6 +22,17 @@ public class CollectionsHelper {
 		return newMap;
 	}
 
+	public static <K, V> Map<K, V> deepCopy(Map<K, V> map) {
+		Map<K, V> newMap = new HashMap<K, V>();
+		Iterator<Entry<K, V>> iterator = map.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Entry<K, V> next = iterator.next();
+			newMap.put(next.getKey(), next.getValue());
+		}
+		
+		return newMap;
+	}
+	
 	public static <V> List<V> deepCopy(List<V> list) {
 		List<V> newList = new ArrayList<V>();
 		for (V i : list) {
@@ -29,6 +41,8 @@ public class CollectionsHelper {
 		return newList;
 	}
 	
+	
+	
 	public static <V> ArrayList<V> deepCopy(ArrayList<V> list) {
 		ArrayList<V> newList = new ArrayList<V>();
 		for (V i : list) {
@@ -36,5 +50,6 @@ public class CollectionsHelper {
 		}
 		return newList;
 	}
-	
+
+		
 }

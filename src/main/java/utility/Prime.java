@@ -2,6 +2,7 @@ package utility;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +73,26 @@ public class Prime {
 		return value;
 	}
 	
+	public static Map<Long, Integer> intersection(Map<Long, Integer> map1, Map<Long, Integer> map2) {
+		Map<Long, Integer> intersection = new HashMap<Long, Integer>();
+		Iterator<Long> keys1 = map1.keySet().iterator();
+		while (keys1.hasNext()) {
+			Long next = keys1.next();
+			Integer other = map2.get(next);
+			if (other != null) {
+				Integer thisOne = map1.get(next);
+				if (thisOne < other) {
+					intersection.put(next, thisOne);
+				} else {
+					intersection.put(next, other);
+				}
+			}
+		}
+		
+		
+		return intersection;
+	}
+
 	public static List<Long> getListOfPrimesLessThan(long n) {
 		List<Long> primes = new LinkedList<Long>();
 		return primes;
