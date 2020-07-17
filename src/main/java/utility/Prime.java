@@ -1,5 +1,6 @@
 package utility;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -9,20 +10,46 @@ import java.util.Map;
 import java.util.Set;
 
 public class Prime {
-
+	
+	public static List<Long> primes = new LinkedList<Long>();
+	
+	static {
+		primes.add(2L);
+		primes.add(3L);
+	}
+	
 	public static boolean isPrime(int p) {
 		return isPrime((long) p);
 	}
 
 	public static boolean isPrime(long p) {
-		if (p <= 0 || p == 2 || p == 1) {
+		if (p <= 0 || p == 1) {
 			return false;
 		}
-		for (int i = 2; i < (p/2+1); i++) {
+		if (p == 2) {
+			return true;
+		}
+		//for (int i = 2; i < (p/2+1); i++) {
+//			if (p % i == 0) {
+//				return false;
+//			}
+//		}
+		if (primes.contains(p)) {
+			return true;
+		}
+		//if p is divisible by at least one prime, then p is not prime. 
+		for (long prime : primes) {
+			if (p % prime == 0) {
+				return false;
+			}
+		}
+		
+		for (long i = Collections.max(primes); i < (p/2+1); i++) {
 			if (p % i == 0) {
 				return false;
 			}
 		}
+		primes.add(p);
 		return true;
 	}
 	
@@ -46,14 +73,12 @@ public class Prime {
 		boolean breakingDown = true;
 		while (breakingDown) {
 			if (remainder % currentDivisor == 0) {
-//				System.out.println("Prime.getMapOfPrimeDivisorsToPowers>> " + currentDivisor + " divides " + remainder);
 				if (null == divisorPower.get(currentDivisor)) {
 					divisorPower.put(currentDivisor, 1);
 				} else {
 					divisorPower.put(currentDivisor, 1+divisorPower.get(currentDivisor));
 				}
 				remainder = remainder / currentDivisor;
-//				System.out.println("Prime.getMapOfPrimeDivisorsToPowers>> new remainder: " + remainder);
 			} else {
 				currentDivisor += 1L;
 			}
@@ -98,11 +123,14 @@ public class Prime {
 		return primes;
 	}
 	
-	public static List<Long> primes = new LinkedList<Long>();
+	public static List<Long> primesNext = new LinkedList<Long>();
+
 	public static long nextPrime(long i) {
 		
 		if (i < 2) {
-			primes.add(2L);
+			if (!primesNext.contains(2L)) {
+				primesNext.add(2L);
+			}
 			return 2;
 		}
 		
@@ -112,23 +140,25 @@ public class Prime {
 			p++;
 			found = isNextPrime(p);
 		}
-		primes.add(p);
+		//this gets added in isNextPrime(p)^^
+		//primesNext.add(p);			
+
 		return p;
 	}
 
 		
 	private static boolean isNextPrime(long p) {
-		if (primes.isEmpty() && isPrime(p)) {
-			primes.add(p);
+		if (primesNext.isEmpty() && isPrime(p)) {
+			primesNext.add(p);
 			return true;
 		}
 		
-		for (long prime : primes) {
+		for (long prime : primesNext) {
 			if (p % prime == 0) {
 				return false;
 			}
 		}
-		primes.add(p);
+		primesNext.add(p);
 		return true;
 	}
 

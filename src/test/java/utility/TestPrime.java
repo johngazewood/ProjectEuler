@@ -98,11 +98,11 @@ public class TestPrime {
 	}
 	
 	
-//	@Test
+	@Test
 	public void testIsPrime() {
 		Assert.assertEquals(false, Prime.isPrime(0));
 		Assert.assertEquals(false, Prime.isPrime(1));
-		Assert.assertEquals(false, Prime.isPrime(2));
+		Assert.assertEquals(true, Prime.isPrime(2));
 		Assert.assertEquals(true, Prime.isPrime(3));
 		Assert.assertEquals(false, Prime.isPrime(4));
 		Assert.assertEquals(true, Prime.isPrime(5));
@@ -121,7 +121,7 @@ public class TestPrime {
 		Assert.assertEquals(true, Prime.isPrime(30933103));
 	}
 	
-//	@Test
+    @Test
 	public void testValueOfPrimeDivisorPowers() {
 		Map<Long, Integer> map = new HashMap<Long, Integer>();
 		Long actual = Prime.getValueOfPrimeDivisorPowers(map);
@@ -149,7 +149,7 @@ public class TestPrime {
 		assertEquals(expected, actual);
 	}
 	
-//	@Test
+	@Test
 	public void testNextPrime() {
 		assertEquals(Prime.nextPrime(1L),2L);
 		assertEquals(Prime.nextPrime(2L),3L);

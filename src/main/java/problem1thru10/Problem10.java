@@ -22,7 +22,7 @@ public class Problem10 {
 
 	private static long summationOfPrimesBelow(long n) {
 		//make sure this is empty;
-		Prime.primes = new LinkedList<Long>();
+		Prime.primesNext = new LinkedList<Long>();
 		long currentPrime = 0;
 		long sum = 0;
 		System.out.println("running...");
