@@ -1,21 +1,25 @@
 package problem31thru40;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import utility.Print;
 
 public class Problem40 {
 
-	static List<Integer> relevantIndexes = new LinkedList<Integer>();
+	static List<Integer> relevantPositions = new LinkedList<Integer>();
 	static {
-		relevantIndexes.add(1);
-		relevantIndexes.add(10);
-		relevantIndexes.add(100);
-		relevantIndexes.add(1000);
-		relevantIndexes.add(10000);
-		relevantIndexes.add(100000);
-		relevantIndexes.add(1000000);
+		relevantPositions.add(1);
+		relevantPositions.add(10);
+		relevantPositions.add(100);
+		relevantPositions.add(1000);
+		relevantPositions.add(10000);
+		relevantPositions.add(100000);
+		relevantPositions.add(1000000);
 		
 	}
 	
@@ -33,33 +37,59 @@ public class Problem40 {
 		// TODO Auto-generated method stub
 		int answer = champernowneConstant();
 		Print.answer(answer);
+		//210
 	}
 
 	private static int champernowneConstant() {
-		int d1 = 0,d10 = 0,d100 = 0,d1000 = 0,d10000 = 0,d100000 = 0,d1000000 = 0;
-		
+		Map<Integer, Integer> positionToValue = new HashMap<Integer, Integer>();
 		int integer = 1;
 		String string = integer+"";
-		int baseIndex = 0;
-		while (baseIndex <= 1000000) {
+		int basePosition = 1;
+		while (basePosition <= 1000000) {
 			//if we are at a relevant location, then grab info.
-			if (weAreAtRelevantLocation(baseIndex, string.length())) {
-				
+			int location = weAreAtRelevantLocation(basePosition, string.length());
+			if (location > 0) {
+				int value = getDigitValue(string, basePosition, string.length(), location);
+				positionToValue.put(location, value);
+				System.out.println("including digit: " + value);
 			}
 			//increment
+			basePosition += string.length();
+			integer++;
+			string = integer+"";
 		}
 		
 		
-		int answer = d1*d10*d100*d1000*d10000*d100000*d1000000;
+		int answer = multiplyValues(positionToValue);
 		return answer;
 	}
-	public static boolean weAreAtRelevantLocation(int baseIndex, int sectionSize) {
-		for (int index : relevantIndexes) {
-			if (baseIndex <= index && index < baseIndex+sectionSize) {
-				return true;
+	public static int multiplyValues(Map<Integer, Integer> indexToValue) {
+		int product = 1;
+		Collection<Integer> values = indexToValue.values();
+		for (Integer v : values) {
+			product *= v;
+		}
+		return product;
+	}
+
+	public static int getDigitValue(String string, int baseIndex, int length, int location) {
+		int index = -1;
+		for (int i = 0; i < length; i++) {
+			if (baseIndex+i == location) {
+				index = i;
+				break;
 			}
 		}
-		return false;
+		return Integer.parseInt(string.charAt(index)+"");
+	}
+
+	public static int weAreAtRelevantLocation(int basePosition, int sectionSize) {
+		for (int position : relevantPositions) {
+			if (basePosition <= position && position < basePosition+sectionSize) {
+				return position;
+			}
+		}
+		return -1;
 	}
 
 }
